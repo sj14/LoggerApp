@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LoggerApp</string>
+    <string name="password">Password</string>
+    <string name="open">Open</string>
+</resources>
