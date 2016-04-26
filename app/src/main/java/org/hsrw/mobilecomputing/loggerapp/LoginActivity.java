@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         mPassword = (EditText) findViewById(R.id.editText_password);
     }
 
-    public void onLogin(View view) {
+    public void onClickLogin(View view) {
         Intent intent = new Intent(this, LogActivity.class);
 
         if(mPassword.getText().toString().equals("0000")) {

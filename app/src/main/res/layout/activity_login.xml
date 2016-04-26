@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="@string/open"
         android:id="@+id/btn_open"
-        android:onClick="onLogin"
+        android:onClick="onClickLogin"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
