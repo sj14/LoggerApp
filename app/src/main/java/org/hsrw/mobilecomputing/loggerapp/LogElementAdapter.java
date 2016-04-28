@@ -29,14 +29,14 @@ public class LogElementAdapter extends ArrayAdapter<LogElement> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        WeatherHolder holder;
+        LogElementHolder holder;
 
         if(row == null)
         {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
-            holder = new WeatherHolder();
+            holder = new LogElementHolder();
             holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
             holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
             holder.txtDescription = (TextView)row.findViewById(R.id.txtDescription);
@@ -45,7 +45,7 @@ public class LogElementAdapter extends ArrayAdapter<LogElement> {
         }
         else
         {
-            holder = (WeatherHolder)row.getTag();
+            holder = (LogElementHolder)row.getTag();
         }
 
         LogElement myListElement = data[position];
@@ -56,7 +56,7 @@ public class LogElementAdapter extends ArrayAdapter<LogElement> {
         return row;
     }
 
-    static class WeatherHolder
+    static class LogElementHolder
     {
         ImageView imgIcon;
         TextView txtTitle;
