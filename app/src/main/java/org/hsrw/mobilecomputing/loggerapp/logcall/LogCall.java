@@ -1,4 +1,6 @@
-package org.hsrw.mobilecomputing.loggerapp;
+package org.hsrw.mobilecomputing.loggerapp.logcall;
+
+import org.hsrw.mobilecomputing.loggerapp.LogElement;
 
 import java.util.Date;
 
