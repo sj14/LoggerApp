@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Created by simon on 26.04.16.
- * Abstract class which holds consistently data for LogApp and LogCall
+ * Abstract class which holds consistently data for LogAppElement and LogCallElement
  */
 public abstract class LogElement {
     Date date;
