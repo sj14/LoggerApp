@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
-        android:key="pref_sync"
-        android:title="TODO"
-        android:summary="TODO"
-        android:defaultValue="true" />
-    <CheckBoxPreference
-        android:key="pref_sync"
-        android:title="TODO"
-        android:summary="TODO"
-        android:defaultValue="true" />
+        android:key="pref_enable_password"
+        android:title="@string/sttng_enable_password"
+        android:summary="@string/sttng_enable_password_summary"
+        android:defaultValue="false" />
+    <EditTextPreference
+        android:key="pref_password"
+        android:title="@string/sttng_password"
+        android:summary="@string/sttng_password_summary"
+        android:inputType="number"
+        android:defaultValue="0000" />
 </PreferenceScreen>

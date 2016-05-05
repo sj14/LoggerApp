@@ -5,4 +5,8 @@
     <string name="wrong_password">Wrong Password!</string>
     <string name="settings">Settings</string>
     <string name="app_icon">App Icon</string>
+    <string name="sttng_enable_password">Enable Password Protection</string>
+    <string name="sttng_enable_password_summary">You have to input a password, to access the App</string>
+    <string name="sttng_password">Set Password</string>
+    <string name="sttng_password_summary">The password to ask for at the login</string>
 </resources>
