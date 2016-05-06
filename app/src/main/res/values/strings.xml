@@ -9,4 +9,5 @@
     <string name="sttng_enable_password_summary">You have to input a password, to access the App</string>
     <string name="sttng_password">Set Password</string>
     <string name="sttng_password_summary">The password to ask for at the login</string>
+    <string name="sttng_password_default">0000</string>
 </resources>

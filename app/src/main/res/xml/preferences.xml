@@ -10,5 +10,5 @@
         android:title="@string/sttng_password"
         android:summary="@string/sttng_password_summary"
         android:inputType="number"
-        android:defaultValue="0000" />
+        android:defaultValue="@string/sttng_password_default" />
 </PreferenceScreen>

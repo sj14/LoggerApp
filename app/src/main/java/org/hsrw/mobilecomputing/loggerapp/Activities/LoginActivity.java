@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void passwordCheckEnabled() {
-        boolean prefEnablePassword = sharedPref.getBoolean("pref_enable_password", true);
+        boolean prefEnablePassword = sharedPref.getBoolean("pref_enable_password", false);
 
         if (!prefEnablePassword) {
             Intent logActivity = new Intent(this, LogActivity.class);
@@ -57,9 +57,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickLogin() {
-        String prefPassword = sharedPref.getString("pref_password", "");
-
+    private void onClickLogin() {
+        String prefPassword = sharedPref.getString("pref_password", "0000");
 
         if(mPassword.getText().toString().equals(prefPassword)) {
             Intent intent = new Intent(this, LogActivity.class);
@@ -69,6 +68,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // to satisfy the necessary onClick signature
+    public void onClickLogin(View view) {
+        onClickLogin();
+    }
 
 
-}
+
+    }
