@@ -13,6 +13,10 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import org.hsrw.mobilecomputing.loggerapp.LogElement;
+
+import java.util.Calendar;
+
 public class CallBroadcast extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
@@ -36,14 +40,30 @@ public class CallBroadcast extends BroadcastReceiver {
 
     private class MyPhoneStateListener extends PhoneStateListener {
 
+        @Override
         public void onCallStateChanged(int state, String incomingNumber) {
 
             Log.d("MyPhoneListener", state + "   incoming no:" + incomingNumber);
 
-            // Ringing = 1, Offhook = 2
-            if (state == 1) {
-                String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
-                Log.d("Phone Receive", " " + msg);
+            CallRecord mCallRecord = new CallRecord();
+
+            switch (state)
+            {
+                case TelephonyManager.CALL_STATE_RINGING:
+
+                    // do whatever you want here
+                    break;
+
+                case TelephonyManager.CALL_STATE_OFFHOOK:
+                    String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
+                    Log.d("Phone Receive", " " + msg);
+                    mCallRecord.startRecording(Calendar.getInstance().getTime().toString());
+                    LogCallElement mLogElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
+                    // TODO store to preference list and start record
+                    break;
+
+                case TelephonyManager.CALL_STATE_IDLE:
+                    mCallRecord.stopRecording();
             }
         }
     }
