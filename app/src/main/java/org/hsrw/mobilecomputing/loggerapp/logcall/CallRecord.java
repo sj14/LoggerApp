@@ -14,13 +14,13 @@ public class CallRecord {
     private MediaRecorder mRecorder;
     private static final String LOG_TAG = "CallRecord";
 
-    public CallRecord() {
+
+    public void startRecording(String dateFileName) {
+        String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+        mFileName += "/thisisATest.3gp";
+
         mRecorder = new MediaRecorder();
-    }
-
-
-    public void startRecording(String mFileName) {
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL);
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         mRecorder.setOutputFile(mFileName);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
@@ -28,15 +28,26 @@ public class CallRecord {
         try {
             mRecorder.prepare();
         } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed: " + e.getLocalizedMessage());
+            Log.e(LOG_TAG, "prepare() failed: ");
+            e.printStackTrace();
+
         }
 
-        mRecorder.start();
+        try {
+            mRecorder.start();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "start() failed: ");
+            e.printStackTrace();
+        }
     }
 
     public void stopRecording() {
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
+        try {
+            mRecorder.stop();
+            mRecorder.release();
+            mRecorder = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

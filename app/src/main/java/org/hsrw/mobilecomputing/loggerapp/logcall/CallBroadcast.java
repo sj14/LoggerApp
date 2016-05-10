@@ -44,21 +44,23 @@ public class CallBroadcast extends BroadcastReceiver {
         public void onCallStateChanged(int state, String incomingNumber) {
 
             Log.d("MyPhoneListener", state + "   incoming no:" + incomingNumber);
-
             CallRecord mCallRecord = new CallRecord();
 
             switch (state)
             {
                 case TelephonyManager.CALL_STATE_RINGING:
-
-                    // do whatever you want here
-                    break;
-
-                case TelephonyManager.CALL_STATE_OFFHOOK:
                     String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
                     Log.d("Phone Receive", " " + msg);
                     mCallRecord.startRecording(Calendar.getInstance().getTime().toString());
                     LogCallElement mLogElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
+                    // TODO store to preference list and start record
+                    break;
+
+                case TelephonyManager.CALL_STATE_OFFHOOK:
+                    //String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
+                    //Log.d("Phone Receive", " " + msg);
+                    //mCallRecord.startRecording(Calendar.getInstance().getTime().toString());
+                    //LogCallElement mLogElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
                     // TODO store to preference list and start record
                     break;
 
