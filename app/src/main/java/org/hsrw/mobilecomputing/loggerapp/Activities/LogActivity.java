@@ -37,26 +37,12 @@ public class LogActivity extends AppCompatActivity {
     }
 
     private void loadItems() {
-
-        SharedPreferences appSharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this.getApplicationContext());
-        Gson gson = new Gson();
-
-        String json = appSharedPrefs.getString("LogCallElements", "");
-
-        Type type = new TypeToken<List<LogCallElement>>(){}.getType();
-        List<LogCallElement> listLogCallElements = gson.fromJson(json, type);
+        List<LogCallElement> listLogCallElements = LogCallElement.getCallElements(this.getApplication());
 
         if (listLogCallElements != null) {
             LogElement myListElement_data[] = listLogCallElements.toArray(new LogCallElement[listLogCallElements.size()]);
-
-
-            LogElementAdapter adapter = new LogElementAdapter(this,
-                    R.layout.listview_item_row, myListElement_data);
-
-
+            LogElementAdapter adapter = new LogElementAdapter(this, R.layout.listview_item_row, myListElement_data);
             listViewLogs = (ListView) findViewById(listView_logs);
-
 
             if (listViewLogs != null) {
                 listViewLogs.setAdapter(adapter);

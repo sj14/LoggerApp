@@ -71,26 +71,7 @@ public class CallBroadcast extends BroadcastReceiver {
                     String dateString = Calendar.getInstance().getTime().toString();
                     mCallRecord.startRecording(dateString);
                     LogCallElement mLogCallElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
-
-
-
-                    SharedPreferences appSharedPrefs = PreferenceManager
-                            .getDefaultSharedPreferences(CallBroadcast.this.getContext());
-                    SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-
-                    String jsonGet = appSharedPrefs.getString("LogCallElements", "");
-
-                    Type type = new TypeToken<List<LogCallElement>>(){}.getType();
-                    Gson gson = new Gson();
-
-                    List<LogCallElement> listLogCallElements = gson.fromJson(jsonGet, type);
-
-                    listLogCallElements.add(0, mLogCallElement);
-
-                    String jsonAdd = gson.toJson(listLogCallElements);
-                    prefsEditor.putString("LogCallElements", jsonAdd);
-                    prefsEditor.apply();
-
+                    LogCallElement.addCallElement(mLogCallElement, CallBroadcast.this.getContext());
                     break;
 
                 case TelephonyManager.CALL_STATE_OFFHOOK:
