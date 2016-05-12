@@ -1,12 +1,17 @@
 package org.hsrw.mobilecomputing.loggerapp.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,8 +49,20 @@ public class LogActivity extends AppCompatActivity {
             LogElementAdapter adapter = new LogElementAdapter(this, R.layout.listview_item_row, myListElement_data);
             listViewLogs = (ListView) findViewById(listView_logs);
 
+
             if (listViewLogs != null) {
                 listViewLogs.setAdapter(adapter);
+
+                listViewLogs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        //String item = ((TextView)view).getText().toString();
+
+                        Toast.makeText(getBaseContext(), "you clicked", Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
         }
     }
@@ -54,5 +71,4 @@ public class LogActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
-
 }

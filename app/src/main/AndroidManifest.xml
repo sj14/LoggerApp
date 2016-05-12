@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.hsrw.mobilecomputing.loggerapp">
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -28,6 +28,7 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activities.RecordActivity"></activity>
     </application>
 
 </manifest>
