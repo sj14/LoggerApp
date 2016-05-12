@@ -45,7 +45,7 @@ public class LogActivity extends AppCompatActivity {
         List<LogCallElement> listLogCallElements = LogCallElement.getCallElements(this.getApplication());
 
         if (listLogCallElements != null) {
-            LogElement myListElement_data[] = listLogCallElements.toArray(new LogCallElement[listLogCallElements.size()]);
+            final LogElement myListElement_data[] = listLogCallElements.toArray(new LogCallElement[listLogCallElements.size()]);
             LogElementAdapter adapter = new LogElementAdapter(this, R.layout.listview_item_row, myListElement_data);
             listViewLogs = (ListView) findViewById(listView_logs);
 
@@ -60,6 +60,11 @@ public class LogActivity extends AppCompatActivity {
                         //String item = ((TextView)view).getText().toString();
 
                         Toast.makeText(getBaseContext(), "you clicked", Toast.LENGTH_LONG).show();
+
+                        Intent i= new Intent(LogActivity.this, RecordActivity.class);
+                        i.putExtra("name",myListElement_data[position].getName());
+                        i.putExtra("date",myListElement_data[position].getDate().toString());
+                        startActivity(i);
                     }
                 });
 

@@ -10,4 +10,6 @@
     <string name="sttng_password">Set Password</string>
     <string name="sttng_password_summary">The password to ask for at the login</string>
     <string name="sttng_password_default">0000</string>
+    <string name="play">Play</string>
+
 </resources>
