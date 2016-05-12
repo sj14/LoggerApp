@@ -70,7 +70,7 @@ public class CallBroadcast extends BroadcastReceiver {
                     Log.d("Phone Receive", " " + msg);
                     String dateString = Calendar.getInstance().getTime().toString();
                     mCallRecord.startRecording(dateString);
-                    LogCallElement mLogElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
+                    LogCallElement mLogCallElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
 
 
 
@@ -85,7 +85,7 @@ public class CallBroadcast extends BroadcastReceiver {
 
                     List<LogCallElement> listLogCallElements = gson.fromJson(jsonGet, type);
 
-                    listLogCallElements.add(mLogElement);
+                    listLogCallElements.add(0, mLogCallElement);
 
                     String jsonAdd = gson.toJson(listLogCallElements);
                     prefsEditor.putString("LogCallElements", jsonAdd);
