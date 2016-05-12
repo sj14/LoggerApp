@@ -9,21 +9,12 @@ package org.hsrw.mobilecomputing.loggerapp.logcall;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.hsrw.mobilecomputing.loggerapp.LogElement;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
 public class CallBroadcast extends BroadcastReceiver {
 
@@ -54,9 +45,7 @@ public class CallBroadcast extends BroadcastReceiver {
     }
 
     private class MyPhoneStateListener extends PhoneStateListener {
-
         CallRecord mCallRecord = CallRecord.getInstance();
-
 
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
@@ -68,9 +57,12 @@ public class CallBroadcast extends BroadcastReceiver {
                 case TelephonyManager.CALL_STATE_RINGING:
                     String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
                     Log.d("Phone Receive", " " + msg);
-                    String dateString = Calendar.getInstance().getTime().toString();
-                    mCallRecord.startRecording(dateString);
-                    LogCallElement mLogCallElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
+                    Date date = Calendar.getInstance().getTime();
+                    LogCallElement mLogCallElement = new LogCallElement(date, incomingNumber);
+
+                    String filePath = CallRecord.getRecordingPath(date.getTime()/1000);
+                    Log.d("CallBroadcast Record", filePath);
+                    mCallRecord.startRecording(filePath);
                     LogCallElement.addCallElement(mLogCallElement, CallBroadcast.this.getContext());
                     break;
 

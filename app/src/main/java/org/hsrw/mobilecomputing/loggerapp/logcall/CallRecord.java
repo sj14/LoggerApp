@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by simon on 09.05.16.
@@ -25,15 +26,23 @@ public class CallRecord {
         return CallRecord.instance;
     }
 
-
-    public void startRecording(String dateFileName) {
+    public static String getRecordingPath(Long date) {
         String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        mFileName += "/callrecord_" + dateFileName + ".3gp";
+        mFileName += "/callrecord_" + date + ".3gp";
+        return mFileName;
+    }
+
+
+    public void startRecording(String filePath) {
+        //String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+        //mFileName += "/callrecord_" + dateFileName + ".3gp";
+
+        //String mFileName = getRecordingPath(dateFileName);
 
         instance.mRecorder = new MediaRecorder();
         instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        instance.mRecorder.setOutputFile(mFileName);
+        instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        instance.mRecorder.setOutputFile(filePath);
         instance.mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 
         try {

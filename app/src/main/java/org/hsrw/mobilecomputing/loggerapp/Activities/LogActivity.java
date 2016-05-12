@@ -56,14 +56,10 @@ public class LogActivity extends AppCompatActivity {
                 listViewLogs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        //String item = ((TextView)view).getText().toString();
-
-                        Toast.makeText(getBaseContext(), "you clicked", Toast.LENGTH_LONG).show();
-
                         Intent i= new Intent(LogActivity.this, RecordActivity.class);
                         i.putExtra("name",myListElement_data[position].getName());
-                        i.putExtra("date",myListElement_data[position].getDate().toString());
+                        i.putExtra("dateL",myListElement_data[position].getDate().getTime());
+                        i.putExtra("date",myListElement_data[position].getDate());
                         startActivity(i);
                     }
                 });

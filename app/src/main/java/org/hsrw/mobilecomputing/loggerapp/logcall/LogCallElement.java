@@ -2,6 +2,7 @@ package org.hsrw.mobilecomputing.loggerapp.logcall;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import org.hsrw.mobilecomputing.loggerapp.LogElement;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +21,11 @@ import java.util.List;
  */
 public class LogCallElement extends LogElement {
 
+    String filePath;
+
     public LogCallElement(Date date, String name) {
         super(date, name);
     }
-
 
     public static List getCallElements(Context context) {
         SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -36,6 +39,9 @@ public class LogCallElement extends LogElement {
 
     public static void addCallElement(LogCallElement e, Context context) {
         List<LogCallElement> listLogCallElements = getCallElements(context);
+        if (listLogCallElements == null) {
+            listLogCallElements = new ArrayList<LogCallElement>();
+        }
         listLogCallElements.add(0, e);
 
         Gson gson = new Gson();
