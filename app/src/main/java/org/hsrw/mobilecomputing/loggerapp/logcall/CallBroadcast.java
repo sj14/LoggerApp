@@ -16,9 +16,11 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.hsrw.mobilecomputing.loggerapp.LogElement;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -76,13 +78,18 @@ public class CallBroadcast extends BroadcastReceiver {
                             .getDefaultSharedPreferences(CallBroadcast.this.getContext());
                     SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
 
-                    List<LogCallElement> calls = new ArrayList<LogCallElement>();
-                    calls.add(mLogElement);
+                    String jsonGet = appSharedPrefs.getString("LogCallElements", "");
 
+                    Type type = new TypeToken<List<LogCallElement>>(){}.getType();
                     Gson gson = new Gson();
-                    String json = gson.toJson(calls);
-                    prefsEditor.putString("LogCallElements", json);
-                    prefsEditor.commit();
+
+                    List<LogCallElement> listLogCallElements = gson.fromJson(jsonGet, type);
+
+                    listLogCallElements.add(mLogElement);
+
+                    String jsonAdd = gson.toJson(listLogCallElements);
+                    prefsEditor.putString("LogCallElements", jsonAdd);
+                    prefsEditor.apply();
 
                     break;
 

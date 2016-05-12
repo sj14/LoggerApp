@@ -37,12 +37,6 @@ public class LogActivity extends AppCompatActivity {
     }
 
     private void loadItems() {
-//        LogElement myListElement_data[] = new LogElement[30];
-//
-//        for (int i = 0; i < 30; i++) {
-//            myListElement_data[i] = new LogElement(Calendar.getInstance().getTime(), "Description " + i) {
-//            };
-//        }
 
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(this.getApplicationContext());
