@@ -11,22 +11,33 @@ import java.io.IOException;
  */
 public class CallRecord {
 
-    private MediaRecorder mRecorder;
+    private static CallRecord instance;
+    private  MediaRecorder mRecorder;
     private static final String LOG_TAG = "CallRecord";
+    private boolean isRecording = false;
+
+    private CallRecord() { }
+
+    public static CallRecord getInstance () {
+        if (CallRecord.instance == null) {
+            CallRecord.instance = new CallRecord ();
+        }
+        return CallRecord.instance;
+    }
 
 
     public void startRecording(String dateFileName) {
         String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         mFileName += "/thisisATest.3gp";
 
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mRecorder.setOutputFile(mFileName);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        instance.mRecorder = new MediaRecorder();
+        instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+        instance.mRecorder.setOutputFile(mFileName);
+        instance.mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 
         try {
-            mRecorder.prepare();
+            instance.mRecorder.prepare();
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed: ");
             e.printStackTrace();
@@ -34,7 +45,8 @@ public class CallRecord {
         }
 
         try {
-            mRecorder.start();
+            instance.mRecorder.start();
+            isRecording = true;
         } catch (Exception e) {
             Log.e(LOG_TAG, "start() failed: ");
             e.printStackTrace();
@@ -43,11 +55,18 @@ public class CallRecord {
 
     public void stopRecording() {
         try {
-            mRecorder.stop();
-            mRecorder.release();
-            mRecorder = null;
+            isRecording = false;
+            instance.mRecorder.stop();
+            instance.mRecorder.reset();
+            instance.mRecorder.release();
+            instance.mRecorder = null;
+            Log.d(LOG_TAG, "Recording stopped");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isRecording() {
+        return isRecording;
     }
 }

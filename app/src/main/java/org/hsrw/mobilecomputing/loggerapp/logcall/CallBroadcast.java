@@ -38,13 +38,15 @@ public class CallBroadcast extends BroadcastReceiver {
 
     }
 
-    private class MyPhoneStateListener extends PhoneStateListener {
+    private static class MyPhoneStateListener extends PhoneStateListener {
+
+        CallRecord mCallRecord = CallRecord.getInstance();
+
 
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
 
             Log.d("MyPhoneListener", state + "   incoming no:" + incomingNumber);
-            CallRecord mCallRecord = new CallRecord();
 
             switch (state)
             {
@@ -65,7 +67,10 @@ public class CallBroadcast extends BroadcastReceiver {
                     break;
 
                 case TelephonyManager.CALL_STATE_IDLE:
-                    mCallRecord.stopRecording();
+                    if (mCallRecord.isRecording()) {
+                         mCallRecord.stopRecording();
+                    }
+                    break;
             }
         }
     }
