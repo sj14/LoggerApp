@@ -34,11 +34,6 @@ public class CallRecord {
 
 
     public void startRecording(String filePath) {
-        //String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        //mFileName += "/callrecord_" + dateFileName + ".3gp";
-
-        //String mFileName = getRecordingPath(dateFileName);
-
         instance.mRecorder = new MediaRecorder();
         instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
