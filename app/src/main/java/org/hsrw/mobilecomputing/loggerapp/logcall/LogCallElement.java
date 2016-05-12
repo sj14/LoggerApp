@@ -13,4 +13,5 @@ public class LogCallElement extends LogElement {
     public LogCallElement(Date date, String name) {
         super(date, name);
     }
+
 }

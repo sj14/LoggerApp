@@ -9,17 +9,27 @@ package org.hsrw.mobilecomputing.loggerapp.logcall;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.hsrw.mobilecomputing.loggerapp.LogElement;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CallBroadcast extends BroadcastReceiver {
 
+    Context mContext = null;
+
     public void onReceive(Context context, Intent intent) {
+
+        mContext = context;
 
         try {
             // TELEPHONY MANAGER class object to register one listner
@@ -35,10 +45,13 @@ public class CallBroadcast extends BroadcastReceiver {
         } catch (Exception e) {
             Log.e("Phone Receive Error", " " + e);
         }
-
     }
 
-    private static class MyPhoneStateListener extends PhoneStateListener {
+    public Context getContext() {
+        return mContext;
+    }
+
+    private class MyPhoneStateListener extends PhoneStateListener {
 
         CallRecord mCallRecord = CallRecord.getInstance();
 
@@ -53,17 +66,27 @@ public class CallBroadcast extends BroadcastReceiver {
                 case TelephonyManager.CALL_STATE_RINGING:
                     String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
                     Log.d("Phone Receive", " " + msg);
-                    mCallRecord.startRecording(Calendar.getInstance().getTime().toString());
+                    String dateString = Calendar.getInstance().getTime().toString();
+                    mCallRecord.startRecording(dateString);
                     LogCallElement mLogElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
-                    // TODO store to preference list and start record
+
+
+
+                    SharedPreferences appSharedPrefs = PreferenceManager
+                            .getDefaultSharedPreferences(CallBroadcast.this.getContext());
+                    SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+
+                    List<LogCallElement> calls = new ArrayList<LogCallElement>();
+                    calls.add(mLogElement);
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(calls);
+                    prefsEditor.putString("LogCallElements", json);
+                    prefsEditor.commit();
+
                     break;
 
                 case TelephonyManager.CALL_STATE_OFFHOOK:
-                    //String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
-                    //Log.d("Phone Receive", " " + msg);
-                    //mCallRecord.startRecording(Calendar.getInstance().getTime().toString());
-                    //LogCallElement mLogElement = new LogCallElement(Calendar.getInstance().getTime(), incomingNumber);
-                    // TODO store to preference list and start record
                     break;
 
                 case TelephonyManager.CALL_STATE_IDLE:

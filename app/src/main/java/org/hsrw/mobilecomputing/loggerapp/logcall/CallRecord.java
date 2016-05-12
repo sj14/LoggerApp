@@ -28,7 +28,7 @@ public class CallRecord {
 
     public void startRecording(String dateFileName) {
         String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        mFileName += "/thisisATest.3gp";
+        mFileName += "/callrecord_" + dateFileName + ".3gp";
 
         instance.mRecorder = new MediaRecorder();
         instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
