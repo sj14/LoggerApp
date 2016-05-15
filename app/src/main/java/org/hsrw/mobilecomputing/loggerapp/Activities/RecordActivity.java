@@ -1,10 +1,14 @@
 package org.hsrw.mobilecomputing.loggerapp.activities;
 
+import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.support.annotation.CallSuper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -39,13 +43,7 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
         mPlayer = new MediaPlayer();
         mPlayer.setOnPreparedListener(this);
 
-        mediaController = new MediaController(this) {
-            @Override
-            public void hide() {
-                //Do not hide.
-            }
-        };
-
+        mediaController = new MediaController(this);
 
         String name = getIntent().getExtras().getString("name");
         date = (Date) getIntent().getExtras().get("date");
@@ -66,12 +64,6 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
         PreparePlayer();
     }
 
-//    public void onClickPlay(View view) {
-//        boolean mStartPlaying = true;
-//        onPlay(mStartPlaying);
-//        mStartPlaying = !mStartPlaying;
-//    }
-
     private void PreparePlayer() {
         String mFileName = CallRecord.getRecordingPath(date.getTime()/1000);
         Log.d("RecordActivity Play", mFileName);
@@ -83,26 +75,11 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
 
             mPlayer.setDataSource(fd);
             mPlayer.prepare();
-            //mPlayer.start();
         } catch (IOException e) {
             Log.e("RecordActivity", "prepare() failed");
             e.printStackTrace();
         }
     }
-
-//    private void stopPlaying() {
-//        mPlayer.release();
-//        mPlayer = null;
-//    }
-
-//    private void onPlay(boolean start) {
-//        if (start) {
-//            PreparePlayer();
-//        } else {
-//            stopPlaying();
-//        }
-//    }
-
 
     @Override
     protected void onStop() {
@@ -110,6 +87,13 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
         mediaController.hide();
         mPlayer.stop();
         mPlayer.release();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //the MediaController will hide after 3 seconds - tap the screen to make it appear again
+        mediaController.show(0);
+        return false;
     }
 
     //--MediaPlayerControl methods----------------------------------------------------
@@ -178,10 +162,8 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
         handler.post(new Runnable() {
             public void run() {
                 mediaController.setEnabled(true);
-                mediaController.show();
+                mediaController.show(0);
             }
         });
     }
-
-
 }
