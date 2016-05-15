@@ -43,7 +43,7 @@ public class LogElementAdapter extends ArrayAdapter<LogElement> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new LogElementHolder();
-            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
+            //holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
             holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
             holder.txtDescription = (TextView)row.findViewById(R.id.txtDescription);
 
