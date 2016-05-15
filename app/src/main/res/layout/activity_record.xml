@@ -15,7 +15,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tv_number"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/number" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +24,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/tv_date"
         android:layout_below="@+id/tv_number"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/date" />
 
     <Button
         android:layout_width="wrap_content"

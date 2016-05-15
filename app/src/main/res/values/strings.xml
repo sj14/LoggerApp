@@ -11,5 +11,7 @@
     <string name="sttng_password_summary">The password to ask for at the login</string>
     <string name="sttng_password_default">0000</string>
     <string name="play">Play</string>
+    <string name="number">number</string>
+    <string name="date">date</string>
 
 </resources>
