@@ -3,11 +3,13 @@ package org.hsrw.mobilecomputing.loggerapp.activities;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.TextView;
 
 import org.hsrw.mobilecomputing.loggerapp.R;
@@ -21,7 +23,7 @@ import java.util.Date;
 
 public class RecordActivity extends AppCompatActivity {
 
-    Long dateL;
+    //Long dateL;
     Date date;
     MediaPlayer mPlayer;
 
@@ -32,10 +34,8 @@ public class RecordActivity extends AppCompatActivity {
 
         TextView tv_name = (TextView) findViewById(R.id.tv_number);
         TextView tv_date = (TextView) findViewById(R.id.tv_date);
-        //Button btn_play = (Button) findViewById(R.id.btn_play);
 
         String name = getIntent().getExtras().getString("name");
-        dateL =  getIntent().getExtras().getLong("dateL");
         date = (Date) getIntent().getExtras().get("date");
 
 
@@ -62,7 +62,7 @@ public class RecordActivity extends AppCompatActivity {
         mPlayer = new MediaPlayer();
         String mFileName = CallRecord.getRecordingPath(date.getTime()/1000);
         Log.d("RecordActivity Play", mFileName);
-        FileDescriptor fd = null;
+        FileDescriptor fd;
 
         try {
             FileInputStream fis = new FileInputStream(mFileName);

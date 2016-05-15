@@ -13,5 +13,6 @@
     <string name="play">Play</string>
     <string name="number">number</string>
     <string name="date">date</string>
+    <string name="permission_denied">Permission Denied. Exiting&#8230;</string>
 
 </resources>
