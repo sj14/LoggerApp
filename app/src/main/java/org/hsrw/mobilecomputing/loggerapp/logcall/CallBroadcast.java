@@ -55,18 +55,20 @@ public class CallBroadcast extends BroadcastReceiver {
             switch (state)
             {
                 case TelephonyManager.CALL_STATE_RINGING:
-                    String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
-                    Log.d("Phone Receive", " " + msg);
-                    Date date = Calendar.getInstance().getTime();
-                    LogCallElement mLogCallElement = new LogCallElement(date, incomingNumber);
-
-                    String filePath = CallRecord.getRecordingPath(date.getTime()/1000);
-                    Log.d("CallBroadcast Record", filePath);
-                    mCallRecord.startRecording(filePath);
-                    LogCallElement.addCallElement(mLogCallElement, CallBroadcast.this.getContext());
                     break;
 
                 case TelephonyManager.CALL_STATE_OFFHOOK:
+                    if (!mCallRecord.isRecording()) {
+                        String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
+                        Log.d("Phone Receive", " " + msg);
+                        Date date = Calendar.getInstance().getTime();
+                        LogCallElement mLogCallElement = new LogCallElement(date, incomingNumber);
+
+                        String filePath = CallRecord.getRecordingPath(date.getTime() / 1000);
+                        Log.d("CallBroadcast Record", filePath);
+                        mCallRecord.startRecording(filePath);
+                        LogCallElement.addCallElement(mLogCallElement, CallBroadcast.this.getContext());
+                    }
                     break;
 
                 case TelephonyManager.CALL_STATE_IDLE:

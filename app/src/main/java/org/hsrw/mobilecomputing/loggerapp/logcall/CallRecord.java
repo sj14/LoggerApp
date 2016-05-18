@@ -35,7 +35,7 @@ public class CallRecord {
 
     public void startRecording(String filePath) {
         instance.mRecorder = new MediaRecorder();
-        instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION);
         instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         instance.mRecorder.setOutputFile(filePath);
         instance.mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);

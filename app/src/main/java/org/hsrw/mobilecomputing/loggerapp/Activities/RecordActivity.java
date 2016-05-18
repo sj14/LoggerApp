@@ -61,10 +61,10 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
             tv_date.setText(date.toString());
         }
 
-        PreparePlayer();
+        preparePlayer();
     }
 
-    private void PreparePlayer() {
+    private void preparePlayer() {
         String mFileName = CallRecord.getRecordingPath(date.getTime()/1000);
         Log.d("RecordActivity Play", mFileName);
         FileDescriptor fd;
@@ -88,6 +88,7 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
         mPlayer.stop();
         mPlayer.release();
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
