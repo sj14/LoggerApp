@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
+    <SwitchPreference
         android:key="pref_enable_password"
         android:title="@string/sttng_enable_password"
         android:summary="@string/sttng_enable_password_summary"
@@ -11,4 +11,9 @@
         android:summary="@string/sttng_password_summary"
         android:inputType="number"
         android:defaultValue="@string/sttng_password_default" />
+    <SwitchPreference
+        android:key="pref_log_calls"
+        android:title="@string/sttng_log_calls"
+        android:summary="@string/sttng_log_calls_summary"
+        android:defaultValue="true" />
 </PreferenceScreen>

@@ -9,6 +9,8 @@ package org.hsrw.mobilecomputing.loggerapp.logcall;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -49,6 +51,14 @@ public class CallBroadcast extends BroadcastReceiver {
 
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
+
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+            if (!sharedPref.getBoolean("pref_log_calls", false)) {
+                Log.d("CallBroadcast", "Call Record disabled");
+                return;
+            }
+
 
             Log.d("MyPhoneListener", state + "   incoming no:" + incomingNumber);
 
