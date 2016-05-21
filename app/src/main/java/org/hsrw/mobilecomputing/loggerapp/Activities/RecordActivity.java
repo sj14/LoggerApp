@@ -86,6 +86,7 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
         super.onStop();
         mediaController.hide();
         mPlayer.stop();
+        mPlayer.reset();
         mPlayer.release();
     }
 

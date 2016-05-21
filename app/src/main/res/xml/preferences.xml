@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General">
     <SwitchPreference
         android:key="pref_enable_password"
         android:title="@string/sttng_enable_password"
@@ -11,9 +12,25 @@
         android:summary="@string/sttng_password_summary"
         android:inputType="number"
         android:defaultValue="@string/sttng_password_default" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Log Calls">
     <SwitchPreference
         android:key="pref_log_calls"
         android:title="@string/sttng_log_calls"
         android:summary="@string/sttng_log_calls_summary"
         android:defaultValue="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Log App Usage">
+    <PreferenceScreen
+        android:key="pref_system_usagesetting"
+        android:title="System Usage Settings"
+        android:summary="Enable the setting for LoggerApp">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="com.android.settings.Settings$UsageAccessSettingsActivity"
+            android:targetPackage="com.android.settings"
+            android:targetClass="com.android.settings.Settings$UsageAccessSettingsActivity" />
+        />
+    </PreferenceScreen>
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST = 0;
 
     Button mLoginButton;
-    TextView mWrontPasswordText;
+    TextView mWrongPasswordText;
     EditText mPassword;
     SharedPreferences sharedPref;
 
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initialiseElements() {
         mLoginButton = (Button) findViewById(R.id.btn_open);
-        mWrontPasswordText = (TextView) findViewById(R.id.textView_wrongPassword);
+        mWrongPasswordText = (TextView) findViewById(R.id.textView_wrongPassword);
         mPassword = (EditText) findViewById(R.id.editText_password);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LogActivity.class);
             startActivity(intent);
         } else {
-            mWrontPasswordText.setVisibility(View.VISIBLE);
+            mWrongPasswordText.setVisibility(View.VISIBLE);
         }
     }
 
@@ -98,8 +98,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST: {
                 // If request is cancelled, the result arrays are empty.
