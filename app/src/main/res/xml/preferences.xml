@@ -13,14 +13,14 @@
         android:inputType="number"
         android:defaultValue="@string/sttng_password_default" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Log Calls">
+    <PreferenceCategory android:title="Calls">
     <SwitchPreference
         android:key="pref_log_calls"
         android:title="@string/sttng_log_calls"
         android:summary="@string/sttng_log_calls_summary"
         android:defaultValue="true" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Log App Usage">
+    <PreferenceCategory android:title="App Usage">
     <PreferenceScreen
         android:key="pref_system_usagesetting"
         android:title="System Usage Settings"
