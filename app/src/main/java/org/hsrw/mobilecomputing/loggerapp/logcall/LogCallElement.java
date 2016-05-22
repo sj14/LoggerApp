@@ -47,7 +47,7 @@ public class LogCallElement {
     public static void addCallElement(LogCallElement e, Context context) {
         List<LogCallElement> listLogCallElements = getCallElements(context);
         if (listLogCallElements == null) {
-            listLogCallElements = new ArrayList<LogCallElement>();
+            listLogCallElements = new ArrayList<>();
         }
         listLogCallElements.add(0, e);
 
