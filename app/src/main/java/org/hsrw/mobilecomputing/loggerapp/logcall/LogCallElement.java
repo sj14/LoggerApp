@@ -2,13 +2,10 @@ package org.hsrw.mobilecomputing.loggerapp.logcall;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.hsrw.mobilecomputing.loggerapp.LogElement;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -19,12 +16,22 @@ import java.util.List;
  * Created by simon on 26.04.16.
  * Represents a log of a call.
  */
-public class LogCallElement extends LogElement {
+public class LogCallElement {
 
-    String filePath;
+    Date date;
+    String name;
 
     public LogCallElement(Date date, String name) {
-        super(date, name);
+        this.date = date;
+        this.name =name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public static List getCallElements(Context context) {

@@ -1,31 +1,27 @@
-package org.hsrw.mobilecomputing.loggerapp;
+package org.hsrw.mobilecomputing.loggerapp.logcall;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import org.hsrw.mobilecomputing.loggerapp.activities.LogActivity;
-import org.hsrw.mobilecomputing.loggerapp.activities.RecordActivity;
+import org.hsrw.mobilecomputing.loggerapp.R;
 
 /**
  * Created by simon on 28.04.16.
- * Maps an LogElement to the listView
+ * Maps an LogCallElement to the listView
  */
-public class LogElementAdapter extends ArrayAdapter<LogElement> {
+public class LogCallAdapter extends ArrayAdapter<LogCallElement> {
 
     Context context;
     int layoutResourceId;
-    LogElement data[] = null;
+    LogCallElement data[] = null;
 
-    public LogElementAdapter(Context context, int layoutResourceId, LogElement[] data) {
+    public LogCallAdapter(Context context, int layoutResourceId, LogCallElement[] data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -54,7 +50,7 @@ public class LogElementAdapter extends ArrayAdapter<LogElement> {
             holder = (LogElementHolder)row.getTag();
         }
 
-        LogElement myListElement = data[position];
+        LogCallElement myListElement = data[position];
         holder.txtTitle.setText(myListElement.getName());
         holder.txtDescription.setText(myListElement.getDate().toString());
         //holder.imgIcon.setImageResource(myListElement.icon);
