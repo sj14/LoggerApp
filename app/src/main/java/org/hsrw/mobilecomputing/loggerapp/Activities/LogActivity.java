@@ -16,7 +16,10 @@ import android.widget.Toast;
 import org.hsrw.mobilecomputing.loggerapp.logcall.LogCallAdapter;
 import org.hsrw.mobilecomputing.loggerapp.R;
 import org.hsrw.mobilecomputing.loggerapp.logcall.LogCallElement;
+import org.hsrw.mobilecomputing.loggerapp.logusage.LogUsageAdapter;
+import org.hsrw.mobilecomputing.loggerapp.logusage.LogUsageElement;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -91,15 +94,43 @@ public class LogActivity extends AppCompatActivity {
         beginCal.set(Calendar.YEAR, -1);
 
 
-        final List<UsageStats> queryUsageStats=usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, beginCal.getTimeInMillis(), System.currentTimeMillis());
+        final List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, beginCal.getTimeInMillis(), System.currentTimeMillis());
+
+        List<LogUsageElement> listLogUsageElements = new ArrayList();
 
         for (UsageStats stat : queryUsageStats) {
-            Log.d("LogActivity", "package: " + stat.getPackageName());
-            Log.d("LogActivity", "FirstTimeStamp: " + stat.getFirstTimeStamp());
-            Log.d("LogActivity", "LastTimeStapm: " + stat.getLastTimeStamp());
-            Log.d("LogActivity", "LastTimeUsed: " + stat.getLastTimeUsed());
-            Log.d("LogActivity", "TotalTimeInForeground: " + stat.getTotalTimeInForeground());
+            listLogUsageElements.add(new LogUsageElement(stat.getPackageName(), stat.getFirstTimeStamp(), stat.getLastTimeStamp(), stat.getLastTimeUsed(), stat.getTotalTimeInForeground()));
+            //Log.d("LogActivity", "package: " + stat.getPackageName());
+            //Log.d("LogActivity", "FirstTimeStamp: " + stat.getFirstTimeStamp());
+            //Log.d("LogActivity", "LastTimeStapm: " + stat.getLastTimeStamp());
+            //Log.d("LogActivity", "LastTimeUsed: " + stat.getLastTimeUsed());
+            //Log.d("LogActivity", "TotalTimeInForeground: " + stat.getTotalTimeInForeground());
         }
+
+
+
+        if (listLogUsageElements != null) {
+            final LogUsageElement myListElement_data[] = listLogUsageElements.toArray(new LogUsageElement[listLogUsageElements.size()]);
+            LogUsageAdapter usageAdapter = new LogUsageAdapter(this, R.layout.listview_usage_row, myListElement_data);
+            listViewUsage = (ListView) findViewById(listView_usage);
+
+            if (listViewUsage != null) {
+                listViewUsage.setAdapter(usageAdapter);
+
+                //listViewCalls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                //    @Override
+                //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //        Intent i= new Intent(LogActivity.this, TODO.class);
+                //        i.putExtra("name",myListElement_data[position].getPackageName());
+                //        i.putExtra("date",myListElement_data[position].getLastTimeUsed());
+                //        startActivity(i);
+                //    }
+                //});
+
+            }
+        }
+
+
     }
 
 
