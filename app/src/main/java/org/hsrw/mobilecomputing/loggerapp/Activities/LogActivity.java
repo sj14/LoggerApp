@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import org.hsrw.mobilecomputing.loggerapp.logcall.LogCallAdapter;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static org.hsrw.mobilecomputing.loggerapp.R.id.listView_calls;
 import static org.hsrw.mobilecomputing.loggerapp.R.id.listView_usage;
+import static org.hsrw.mobilecomputing.loggerapp.R.id.tabHost;
 
 public class LogActivity extends AppCompatActivity {
 
@@ -35,7 +37,28 @@ public class LogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
         loadCallItems();
+        loadUsageItems();
+        loadTabHost();
     }
+
+    private void loadTabHost() {
+        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+        tabHost.setup();
+
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("First Tab");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("Second Tab");
+
+        tab1.setIndicator("Calls");
+        tab1.setContent(listView_calls);
+
+        tab2.setIndicator("Apps");
+        tab2.setContent(listView_usage);
+
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
+    }
+
+
 
     private void loadCallItems() {
         List<LogCallElement> listLogCallElements = LogCallElement.getCallElements(this.getApplication());
@@ -62,8 +85,25 @@ public class LogActivity extends AppCompatActivity {
         }
     }
 
+    private void loadUsageItems() {
+        UsageStatsManager usageStatsManager = (UsageStatsManager) this.getSystemService(Context.USAGE_STATS_SERVICE); //Context.USAGE_STATS_SERVICE
+        Calendar beginCal = Calendar.getInstance();
+        beginCal.set(Calendar.YEAR, -1);
 
-        public void onClickSettings(View view) {
+
+        final List<UsageStats> queryUsageStats=usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, beginCal.getTimeInMillis(), System.currentTimeMillis());
+
+        for (UsageStats stat : queryUsageStats) {
+            Log.d("LogActivity", "package: " + stat.getPackageName());
+            Log.d("LogActivity", "FirstTimeStamp: " + stat.getFirstTimeStamp());
+            Log.d("LogActivity", "LastTimeStapm: " + stat.getLastTimeStamp());
+            Log.d("LogActivity", "LastTimeUsed: " + stat.getLastTimeUsed());
+            Log.d("LogActivity", "TotalTimeInForeground: " + stat.getTotalTimeInForeground());
+        }
+    }
+
+
+    public void onClickSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
