@@ -1,15 +1,11 @@
 package org.hsrw.mobilecomputing.loggerapp.activities;
 
-import android.app.Activity;
 import android.media.MediaPlayer;
-import android.os.Handler;
-import android.support.annotation.CallSuper;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
 

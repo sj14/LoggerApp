@@ -1,8 +1,8 @@
 package org.hsrw.mobilecomputing.loggerapp.activities;
 
+import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.os.Bundle;
 
 import org.hsrw.mobilecomputing.loggerapp.R;
 

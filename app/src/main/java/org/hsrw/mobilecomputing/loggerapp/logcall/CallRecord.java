@@ -5,7 +5,6 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * Created by simon on 09.05.16.
@@ -35,7 +34,7 @@ public class CallRecord {
 
     public void startRecording(String filePath) {
         instance.mRecorder = new MediaRecorder();
-        instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION);
+        instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION); // should be VOICE_CALL
         instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         instance.mRecorder.setOutputFile(filePath);
         instance.mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);

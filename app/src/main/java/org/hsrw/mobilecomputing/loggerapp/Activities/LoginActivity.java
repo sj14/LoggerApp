@@ -2,13 +2,12 @@ package org.hsrw.mobilecomputing.loggerapp.activities;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.hsrw.mobilecomputing.loggerapp.R;
+import org.hsrw.mobilecomputing.loggerapp.common.Preferences;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     Button mLoginButton;
     TextView mWrongPasswordText;
     EditText mPassword;
-    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = (Button) findViewById(R.id.btn_open);
         mWrongPasswordText = (TextView) findViewById(R.id.textView_wrongPassword);
         mPassword = (EditText) findViewById(R.id.editText_password);
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         mPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -57,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void passwordCheckEnabled() {
-        boolean prefEnablePassword = sharedPref.getBoolean("pref_enable_password", false);
+        boolean prefEnablePassword = Preferences.getPreferences(this).getBoolean("pref_enable_password", false);
 
         if (!prefEnablePassword) {
             Intent logActivity = new Intent(this, LogActivity.class);
@@ -66,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onClickLogin() {
-        String prefPassword = sharedPref.getString("pref_password", "0000");
+        String prefPassword = Preferences.getPreferences(this).getString("pref_password", "0000");
 
         if(mPassword.getText().toString().equals(prefPassword)) {
             Intent intent = new Intent(this, LogActivity.class);
@@ -98,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST: {
                 // If request is cancelled, the result arrays are empty.
