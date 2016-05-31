@@ -29,7 +29,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.RecordActivity" />
+        <activity android:name=".activities.CallActivity" />
         <activity android:name=".activities.UsageActivity"></activity>
     </application>
 

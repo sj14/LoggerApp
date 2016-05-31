@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.hsrw.mobilecomputing.loggerapp.R;
-import org.hsrw.mobilecomputing.loggerapp.common.Preferences;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void passwordCheckEnabled() {
-        boolean prefEnablePassword = Preferences.getPreferences(this).getBoolean("pref_enable_password", false);
+        boolean prefEnablePassword = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_enable_password", false);
 
         if (!prefEnablePassword) {
             Intent logActivity = new Intent(this, LogActivity.class);
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onClickLogin() {
-        String prefPassword = Preferences.getPreferences(this).getString("pref_password", "0000");
+        String prefPassword = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_password", "0000");
 
         if(mPassword.getText().toString().equals(prefPassword)) {
             Intent intent = new Intent(this, LogActivity.class);

@@ -97,7 +97,7 @@ public class LogActivity extends AppCompatActivity {
                 listViewCalls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent i = new Intent(LogActivity.this, RecordActivity.class);
+                        Intent i = new Intent(LogActivity.this, CallActivity.class);
                         i.putExtra("name", myListElement_data[position].getName());
                         i.putExtra("date", myListElement_data[position].getDate());
                         startActivity(i);

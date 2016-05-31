@@ -20,7 +20,7 @@ import java.util.Date;
 
 // http://stackoverflow.com/questions/3747139/how-can-i-show-a-mediacontroller-while-playing-audio-in-android
 
-public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnPreparedListener, MediaController.MediaPlayerControl{
+public class CallActivity extends AppCompatActivity implements MediaPlayer.OnPreparedListener, MediaController.MediaPlayerControl{
 
     Date date;
     MediaPlayer mPlayer;
@@ -31,7 +31,7 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record);
+        setContentView(R.layout.activity_call);
 
         TextView tv_name = (TextView) findViewById(R.id.tv_number);
         TextView tv_date = (TextView) findViewById(R.id.tv_date);
@@ -45,8 +45,8 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
         date = (Date) getIntent().getExtras().get("date");
 
 
-        Log.d("RecordActivity", name);
-        Log.d("RecordActivity", date.toString());
+        Log.d("CallActivity", name);
+        Log.d("CallActivity", date.toString());
 
 
         if (tv_name != null) {
@@ -62,7 +62,7 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
 
     private void preparePlayer() {
         String mFileName = CallRecord.getRecordingPath(date.getTime()/1000);
-        Log.d("RecordActivity Play", mFileName);
+        Log.d("CallActivity Play", mFileName);
         FileDescriptor fd;
 
         try {
@@ -72,7 +72,7 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
             mPlayer.setDataSource(fd);
             mPlayer.prepare();
         } catch (IOException e) {
-            Log.e("RecordActivity", "prepare() failed");
+            Log.e("CallActivity", "prepare() failed");
             e.printStackTrace();
         }
     }
@@ -153,7 +153,7 @@ public class RecordActivity extends AppCompatActivity implements MediaPlayer.OnP
     //--------------------------------------------------------------------------------
 
     public void onPrepared(MediaPlayer mediaPlayer) {
-        Log.d("RecordActivity", "onPrepared");
+        Log.d("CallActivity", "onPrepared");
         mediaController.setMediaPlayer(this);
         mediaController.setAnchorView(findViewById(R.id.record_view));
 

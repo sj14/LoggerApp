@@ -34,7 +34,7 @@ public class CallRecord {
 
     public void startRecording(String filePath) {
         instance.mRecorder = new MediaRecorder();
-        instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION); // should be VOICE_CALL
+        instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL); // should be VOICE_CALL // VOICE_COMMUNICATION works but only uplink recording
         instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         instance.mRecorder.setOutputFile(filePath);
         instance.mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
