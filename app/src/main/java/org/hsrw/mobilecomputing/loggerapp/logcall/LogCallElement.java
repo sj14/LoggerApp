@@ -7,8 +7,6 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.hsrw.mobilecomputing.loggerapp.common.Preferences;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +54,7 @@ public class LogCallElement {
         Gson gson = new Gson();
         String jsonAdd = gson.toJson(listLogCallElements);
 
-        SharedPreferences.Editor prefsEditor = Preferences.getPreferences(context).edit();
+        SharedPreferences.Editor prefsEditor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefsEditor.putString("LogCallElements", jsonAdd);
         prefsEditor.apply();
     }
