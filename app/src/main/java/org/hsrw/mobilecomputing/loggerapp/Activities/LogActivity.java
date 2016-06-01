@@ -63,9 +63,9 @@ public class LogActivity extends AppCompatActivity {
         return true;
     }
 
-
+    TabHost tabHost;
     private void loadTabHost() {
-        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+        tabHost = (TabHost) findViewById(R.id.tabHost);
         assert tabHost != null;
         tabHost.setup();
 

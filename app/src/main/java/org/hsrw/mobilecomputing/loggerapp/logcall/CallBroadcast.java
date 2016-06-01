@@ -73,7 +73,7 @@ public class CallBroadcast extends BroadcastReceiver {
 
                         String filePath = CallRecord.getRecordingPath(date.getTime() / 1000);
                         Log.d("CallBroadcast Record", filePath);
-                        mCallRecord.startRecording(filePath);
+                        mCallRecord.startRecording(filePath, getContext());
                         LogCallElement.addCallElement(mLogCallElement, CallBroadcast.this.getContext());
                     }
                     break;

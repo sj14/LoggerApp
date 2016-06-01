@@ -1,7 +1,9 @@
 package org.hsrw.mobilecomputing.loggerapp.logcall;
 
+import android.content.Context;
 import android.media.MediaRecorder;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.IOException;
@@ -32,9 +34,16 @@ public class CallRecord {
     }
 
 
-    public void startRecording(String filePath) {
+    public void startRecording(String filePath, Context context) {
         instance.mRecorder = new MediaRecorder();
-        instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL); // should be VOICE_CALL // VOICE_COMMUNICATION works but only uplink recording
+        String audioSource = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).getString("pref_audiosource", "VOICE_COMMUNICATION");
+
+        if (audioSource.equals("VOICE_COMMUNICATION")) {
+            instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION); // should be VOICE_CALL // VOICE_COMMUNICATION works but only uplink recording
+        } else {
+                instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL); // should be VOICE_CALL // VOICE_COMMUNICATION works but only uplink recording
+            }
+
         instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         instance.mRecorder.setOutputFile(filePath);
         instance.mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
