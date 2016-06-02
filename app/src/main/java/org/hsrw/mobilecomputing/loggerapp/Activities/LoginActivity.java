@@ -19,6 +19,11 @@ import android.widget.Toast;
 
 import org.hsrw.mobilecomputing.loggerapp.R;
 
+/*
+This Activity is shown, if the password protection has been enabled.
+It asks for a PIN and rejects to open the LogActivity if the PIN is wrong.
+The PIN can be changed in the settings.
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST = 0;
@@ -33,16 +38,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         checkPermissions();
-
         initialiseElements();
         passwordCheckEnabled();
     }
 
     private void initialiseElements() {
+        // Get the GUI Elements
         mLoginButton = (Button) findViewById(R.id.btn_open);
         mWrongPasswordText = (TextView) findViewById(R.id.textView_wrongPassword);
         mPassword = (EditText) findViewById(R.id.editText_password);
 
+        // A click on the "Enter" Button of the soft-keyboard should have the same
+        // behaviour as a click on the Login Button, which just calls the onClickLogin() Method.
         mPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
@@ -54,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    // Check if the password protection is enabled. If it is not enabled, just start the LogActivity.
     private void passwordCheckEnabled() {
         boolean prefEnablePassword = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_enable_password", false);
 
@@ -63,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // Check if the password is correct and open the LogActivity or show a text with the info,
+    // that the password is wrong.
     private void onClickLogin() {
         String prefPassword = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_password", "0000");
 
@@ -74,13 +84,15 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // to satisfy the necessary onClick signature
+    // to satisfy the necessary onClick signature which needs the View to be passed.
     public void onClickLogin(View view) {
         onClickLogin();
     }
 
+    // Ask for the run-time permissions (needs Android >= 6.0 Marshmallow
+    // On Android versions below, you are not able to allow or deny these permissions.
+    // They are accepted when you install the App.
     public void checkPermissions() {
-
         // READ PHONE STATE
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
@@ -95,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // The results of the permission request.
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -103,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 for (int grantResult : grantResults) {
                     if (grantResult == PackageManager.PERMISSION_DENIED) {
+                        // If the permissions where not granted, exit the App.
                         Toast exiting = Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_LONG);
                         exiting.show();
                         finish();

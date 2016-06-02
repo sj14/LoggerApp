@@ -17,9 +17,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 
+/*
+This Acitivty is the detial view of a recorded call.
+It contains a media player and controller to be able to play and control (fast forward/ fast backward) recorded file.
 
-// http://stackoverflow.com/questions/3747139/how-can-i-show-a-mediacontroller-while-playing-audio-in-android
-
+http://stackoverflow.com/questions/3747139/how-can-i-show-a-mediacontroller-while-playing-audio-in-android
+*/
 public class CallActivity extends AppCompatActivity implements MediaPlayer.OnPreparedListener, MediaController.MediaPlayerControl{
 
     Date date;
@@ -33,22 +36,24 @@ public class CallActivity extends AppCompatActivity implements MediaPlayer.OnPre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call);
 
+        // Get the GUI elements
         TextView tv_name = (TextView) findViewById(R.id.tv_number);
         TextView tv_date = (TextView) findViewById(R.id.tv_date);
 
+        // Create Player and Controller Objects
         mPlayer = new MediaPlayer();
         mPlayer.setOnPreparedListener(this);
-
         mediaController = new MediaController(this);
 
+        // Get the particular values of the clicked record from the big list of all records
         String name = getIntent().getExtras().getString("name");
         date = (Date) getIntent().getExtras().get("date");
 
-
+        // Debugging Output
         Log.d("CallActivity", name);
         Log.d("CallActivity", date.toString());
 
-
+        // Set the values to the GUI elements
         if (tv_name != null) {
             tv_name.setText(name);
         }
@@ -60,6 +65,8 @@ public class CallActivity extends AppCompatActivity implements MediaPlayer.OnPre
         preparePlayer();
     }
 
+    // Load the recorded file into the player.
+    // The filename is the recording date / 1000.
     private void preparePlayer() {
         String mFileName = CallRecord.getRecordingPath(date.getTime()/1000);
         Log.d("CallActivity Play", mFileName);

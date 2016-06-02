@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import org.hsrw.mobilecomputing.loggerapp.R;
 
+/*
+The detail statistics acitivty of a particular app selected from the whole list of apps
+ */
 public class UsageActivity extends AppCompatActivity {
 
     @Override
@@ -13,18 +16,21 @@ public class UsageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usage);
 
+        // Get the GUI Elements
         TextView tv_packageName = (TextView) findViewById(R.id.tv_packageName);
         TextView tv_firstTime = (TextView) findViewById(R.id.tv_firstTime);
         TextView tv_lastTime = (TextView) findViewById(R.id.tv_lastTime);
         TextView tv_lastTimeUsed = (TextView) findViewById(R.id.tv_lastTimeUsed);
         TextView tv_totalTimeForeground = (TextView) findViewById(R.id.tv_totalTimeForeground);
 
+        // Get the stat values of the selected app
         String packageName = getIntent().getExtras().getString("packageName");
         Long firstTime = getIntent().getExtras().getLong("firstTime");
         Long lastTime = getIntent().getExtras().getLong("lastTime");
         Long lastTimeUsed = getIntent().getExtras().getLong("lastTimeUsed");
         Long totalTimeForeground = getIntent().getExtras().getLong("totalTimeForeground");
 
+        // Assign the values to the GUI elements
         assert tv_packageName != null;
         tv_packageName.setText(packageName);
         assert tv_firstTime != null;
