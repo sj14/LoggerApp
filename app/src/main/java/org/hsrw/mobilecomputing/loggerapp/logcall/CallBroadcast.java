@@ -1,7 +1,7 @@
 package org.hsrw.mobilecomputing.loggerapp.logcall;
 
 /**
- * Created by simon on 08.05.16.
+ * This class implements the logic of what to do when a call broadcast is received.
  * based on:
  * http://androidexample.com/Incomming_Phone_Call_Broadcast_Receiver__-_Android_Example/index.php?view=article_discription&aid=61&aaid=86
  */
@@ -21,8 +21,8 @@ public class CallBroadcast extends BroadcastReceiver {
 
     Context mContext = null;
 
+    // Create a MyPhoneStateListener (inner class) if a broadcast is received
     public void onReceive(Context context, Intent intent) {
-
         mContext = context;
 
         try {
@@ -45,6 +45,7 @@ public class CallBroadcast extends BroadcastReceiver {
         return mContext;
     }
 
+    // Inner class
     private class MyPhoneStateListener extends PhoneStateListener {
         CallRecord mCallRecord = CallRecord.getInstance();
 
@@ -55,7 +56,6 @@ public class CallBroadcast extends BroadcastReceiver {
                 Log.d("CallBroadcast", "Call Record disabled");
                 return;
             }
-
 
             Log.d("MyPhoneListener", state + "   incoming no:" + incomingNumber);
 
@@ -68,17 +68,27 @@ public class CallBroadcast extends BroadcastReceiver {
                     if (!mCallRecord.isRecording()) {
                         String msg = "New Phone Call Event. Incoming Number : " + incomingNumber;
                         Log.d("Phone Receive", " " + msg);
+
+                        // If the call is off-hook, get the current date and time
                         Date date = Calendar.getInstance().getTime();
+
+                        // and create a LogCallElement Object.
                         LogCallElement mLogCallElement = new LogCallElement(date, incomingNumber);
 
+                        // The recording path is set to the timestamp/1000.
                         String filePath = CallRecord.getRecordingPath(date.getTime() / 1000);
                         Log.d("CallBroadcast Record", filePath);
+
+                        // start the recording
                         mCallRecord.startRecording(filePath, getContext());
+
+                        // Add the newly created Object to the list of all Call Objects.
                         LogCallElement.addCallElement(mLogCallElement, CallBroadcast.this.getContext());
                     }
                     break;
 
                 case TelephonyManager.CALL_STATE_IDLE:
+                    // If the call ends, stop the recording
                     if (mCallRecord.isRecording()) {
                          mCallRecord.stopRecording();
                     }

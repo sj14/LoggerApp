@@ -9,7 +9,7 @@ import android.util.Log;
 import java.io.IOException;
 
 /**
- * Created by simon on 09.05.16.
+ * This class initiates the recorder
  */
 public class CallRecord {
 
@@ -27,21 +27,27 @@ public class CallRecord {
         return CallRecord.instance;
     }
 
+    // The recording path is set to the string "callrecord_" + date of the call + ".3gp".
+    // E.g. callrecord_1464780617.3gp
+    // The .3gp extension is always chosen, even when it's not correct, it does not influence the behaviour.
     public static String getRecordingPath(Long date) {
         String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         mFileName += "/callrecord_" + date + ".3gp";
         return mFileName;
     }
 
-
+    // start the recording
     public void startRecording(String filePath, Context context) {
         instance.mRecorder = new MediaRecorder();
+
+        // Get the setting for the audiosource, because VOICE_CALL does not work on all phones.
+        // VOICE_CALL should record both sides, whereas VOICE_COMMUNICATION only record the uplink (The user of this App).
         String audioSource = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).getString("pref_audiosource", "VOICE_COMMUNICATION");
 
         if (audioSource.equals("VOICE_COMMUNICATION")) {
-            instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION); // should be VOICE_CALL // VOICE_COMMUNICATION works but only uplink recording
+            instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION);
         } else {
-                instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL); // should be VOICE_CALL // VOICE_COMMUNICATION works but only uplink recording
+                instance.mRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL);
             }
 
         instance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
