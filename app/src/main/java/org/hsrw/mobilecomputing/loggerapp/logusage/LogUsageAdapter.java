@@ -13,7 +13,7 @@ import org.hsrw.mobilecomputing.loggerapp.R;
 
 /**
  * Created by simon on 28.04.16.
- * Maps an LogCallElement to the listView
+ * Maps an LogUsageElement to the listView
  */
 public class LogUsageAdapter extends ArrayAdapter<LogUsageElement> {
 
